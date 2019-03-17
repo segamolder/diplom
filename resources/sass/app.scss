@@ -64,24 +64,36 @@
 html,
 body {
     font: 12px/18px Arial, sans-serif;
+    overflow: hidden;
 }
 
 .nav {
-    display: block;
+    display: flex;
     //width: 100%;
     height: 100px;
     //position: relative;
     background-color: $white;
-    border-bottom: 1px solid black;
-    
+    border-bottom: 1px solid black; // полоса снизу 
+    justify-content: space-between;
 }
 
 #logo {
     background: url(../img/logo.png) no-repeat;
     width: 250px;
-    height: 100px;
+    height: 99px;
 }
 
+.auth {
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__button {
+        margin: 0 5px 0 5px;
+        width: 150px;
+    }
+}
 
 .header {
     width: 100%;
@@ -97,4 +109,41 @@ body {
 .footer {
     height: 1vh;
     background: #BFF08E;
+}
+
+.dialog {
+    //display: block;
+    margin-top: 150px;
+    width: 500px;
+    height: 300px;
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__close {
+        //margin: 0 0 0 440px;
+    }
+    
+    &__name {
+        
+    }
+    
+    &__pass {
+        
+    }
+
+    &__submit {
+        //margin: 200px 206px 200px 206 px;
+        margin-top: 10px;
+    }
+    
+    input {
+        margin: 10px 10px 0 10px;
+        width: 400px;
+    }
+
 }

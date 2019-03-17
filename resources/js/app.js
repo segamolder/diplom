@@ -31,3 +31,15 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app'
 });
+
+var dialog = new Vue({
+    el: '#auth',
+    data: {
+        name: 'auth'
+    },
+    methods: {
+        showDialog: function() {
+            
+        }
+    }
+})

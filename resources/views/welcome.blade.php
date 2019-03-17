@@ -12,6 +12,7 @@
 
     <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet" type="text/css">
     <script src="{{ URL::asset('js/app.js') }}"></script>
+    <script src="{{ URL::asset('js/welcomeBlade.js') }}"></script>
 </head>
 <!--  <body>
         <div class="flex-center position-ref full-height">
@@ -54,12 +55,30 @@
 
 <body>
 
+    <dialog class="dialog">  
+       <button class="dialog__close">&#10006;</button>    
+        <form action="#" class="dialog__form">
+           
+            <div class="dialog__title"> </div>
+            <input type="text" class="dialog__name" placeholder="Логин">
+            <input type="password" class="dialog__pass" placeholder="Пароль">
+            <button class="dialog__submit" type="submit"></button>
+        </form>
+    </dialog>
+
     <div class="wrapper">
 
         <header class="header">
             <div class="nav">
                 <div id="logo"></div>
-            </div>                
+                <div class="auth">
+                    <button class="auth__button" id="logIn" type="button">Войти</button>
+                    <button class="auth__button" id="signIn" type="button">Зарегистрироваться</button>
+
+                </div>
+            </div>
+
+
         </header><!-- .header-->
 
         <main class="content">
