@@ -1,18 +1,19 @@
- <!doctype html>
+<!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-       
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+    <title>Laravel</title>
 
-      <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet" type="text/css">
-      <script src="{{ URL::asset('js/app.js') }}"></script>
-    </head>
-   <!--  <body>
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+
+    <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet" type="text/css">
+    <script src="{{ URL::asset('js/app.js') }}"></script>
+</head>
+<!--  <body>
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
@@ -53,22 +54,24 @@
 
 <body>
 
-<div class="wrapper">
+    <div class="wrapper">
 
-	<header class="header">
-		 
-          
-	</header><!-- .header-->
+        <header class="header">
+            <div class="nav">
+                <div id="logo"></div>
+            </div>                
+        </header><!-- .header-->
 
-	<main class="content">
-		
-	</main><!-- .content -->
+        <main class="content">
 
-	<footer class="footer">
-		
-	</footer><!-- .footer -->
+        </main><!-- .content -->
 
-</div><!-- .wrapper -->
+        <footer class="footer">
+
+        </footer><!-- .footer -->
+
+    </div><!-- .wrapper -->
 
 </body>
+
 </html>
