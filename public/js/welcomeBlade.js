@@ -129,7 +129,7 @@ window.onload = function () {
   document.querySelector('.dialog__close').onclick = function () {
     dialog.close();
   };
-};
+}; // // // //
 
 /***/ }),
 
