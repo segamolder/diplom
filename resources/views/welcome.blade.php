@@ -1,10 +1,30 @@
 @extends('layouts.app')
 
-@section('content');
-        <main class="container">
-            
-           
-        </main><!-- .content -->
+@section('content')
+<div class="slider"></div>
+<div class="second-block">
+    <div class="second-block__title">С нашим сервисом вы можете <br> создать баннер и разместить его <br> в несколько простых этапов:</div>
+    <hr>
+    <div class="second-block__trigger">
+        <i class="far fa-lightbulb fa-4x second-block__bulb-icon"></i><br>
+        <p>Придумайте идею</p>
+    </div>
+    <div class="second-block__trigger">
+        <i class="far fa-edit fa-4x"></i><br>
+        <p>Создайте баннер</p>
+    </div>
+    <div class="second-block__trigger">
+        <i class="fas fa-link fa-4x second-block__link-icon"></i><br>
+        <p>Получите ссылку</p>
+    </div>
+    <div class="second-block__trigger">
+        <i class="fas fa-globe-europe fa-4x second-block__earth-icon"></i><br>
+        <p>Разместите на сайте</p>
+    </div>
+</div>
+<div class="create_banner_with_us"></div>
+
+<div class="footer"></div>
 
 <!--
         <footer class="footer">
@@ -21,4 +41,3 @@
         </footer>
 -->
 @endsection
-

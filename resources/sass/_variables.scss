@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC|Pacifico');
 
 // Body
 $body-bg: #f8fafc;
@@ -6,6 +7,8 @@ $body-bg: #f8fafc;
 $font-family-sans-serif: "Nunito", sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
+$Pacifico: 'Pacifico', cursive;
+$Amatic: 'Amatic SC', cursive; 
 
 // Colors
 $blue: #3490dc;
@@ -20,3 +23,6 @@ $teal: #4dc0b5;
 $cyan: #6cb2eb;
 $black: #000000;
 $white: #ffffff;
+
+//height
+$nav_height: 100px;
