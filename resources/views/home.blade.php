@@ -10,11 +10,8 @@
         @endif
 
         <div id="work_panel">
-            <div id="grid">
-                <div class="header"></div>
-                <div class="nav"></div>
-                <div class="main"></div>
-            </div>
+            <banner_editor></banner_editor>
+            
         </div>
     </div>
 </div>

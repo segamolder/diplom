@@ -162,9 +162,9 @@ window.onload = function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! W:\domains\DIPLOM\resources\js\welcomeBlade.js */"./resources/js/welcomeBlade.js");
-__webpack_require__(/*! W:\domains\DIPLOM\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! W:\domains\DIPLOM\resources\sass\home.scss */"./resources/sass/home.scss");
+__webpack_require__(/*! W:\domains\diplom\resources\js\welcomeBlade.js */"./resources/js/welcomeBlade.js");
+__webpack_require__(/*! W:\domains\diplom\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! W:\domains\diplom\resources\sass\home.scss */"./resources/sass/home.scss");
 
 
 /***/ })
