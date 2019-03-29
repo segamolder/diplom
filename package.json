@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.9"
     },
     "dependencies": {
+        "html2canvas": "^1.0.0-alpha.12",
         "vue-draggable-resizable": "^2.0.0-rc1"
     }
 }

@@ -5,12 +5,14 @@
             <button v-on:click='insert_image'>Изображение фона</button>
             <input type="text" v-model="bg_image_height" placeholder="height: %">
             <input type="text" v-model="bg_image_width" placeholder="width: %">
+            <input type="text" v-model="input_text" placeholder="Введите текст">
+            <button v-on:click='insert_text'>Добавить текст</button>
         </div>
         <div class="nav">
 
         </div>
         <div class="main">
-            <div class="banner-template" v-bind:style=" {
+            <div id="banner-template" v-bind:style=" {
                                                             backgroundColor: '#ffffff', 
                                                             display: 'block',
                                                             position: 'relative',
@@ -18,9 +20,10 @@
                                                             height: bg_image_height + '%',
                                                             backgroundRepeat: 'no-repeat'
                                                         }">
-                <vue-draggable-resizable class-name="backgroungImage" :w="10" :h="10" parent=".banner-template">
+                <vue-draggable-resizable class-name="backgroungImage" parent=".main" @dragging="onDrag" @resizing="onResize">
                     <img v-bind:src="image_url" alt="" v-bind:style="{position: 'relative', width: width + 'px', height: height + 'px'}">
                 </vue-draggable-resizable>
+                <p>fghfhg</p>
             </div>
 
 
@@ -29,7 +32,8 @@
 </template>
 
 <script>
-    import VueDraggableResizable from 'vue-draggable-resizable'
+    import VueDraggableResizable from 'vue-draggable-resizable';
+    import html2canvas from 'html2canvas';
     export default {
         name: 'banner_editor',
         data() {
@@ -40,7 +44,9 @@
                 width: 0,
                 height: 0,
                 x: 0,
-                y: 0
+                y: 0,
+                input_text: '',
+                banner_template_dom: ''
             }
         },
         methods: {
@@ -55,15 +61,21 @@
                 this.y = y
             },
             insert_image() {
-
+                html2canvas(this.banner_template_dom).then(function(canvas) {
+                    document.getElementsByClassName('main')[0].appendChild(canvas);
+                });
             },
-            update_template() {
-
+            insert_text() {
+                
+                
             }
         },
         created() {
-            this.bg_image_height = 100;
-            this.bg_image_width = 100;
+            this.bg_image_height = 50;
+            this.bg_image_width = 50;
+        },
+        updated() {
+            this.banner_template_dom = document.getElementById('banner-template');
         }
     }
 
