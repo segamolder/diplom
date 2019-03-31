@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use App;
+use App\File;
+
 
 class HomeController extends Controller
 {
@@ -26,32 +31,41 @@ class HomeController extends Controller
         return view('home');
     }
     
-     public function showUploadFile(Request $request){
-         $max_size = (int)ini_get('upload_max_filesize') * 1000;
-    $all_ext = implode(',', $this->allExtensions());
+  
 
-    $this->validate($request, [
-      'name' => 'required|unique:files',
-      'file' => 'required|file|mimes:' . $all_ext . '|max:' . $max_size
-    ]);
+    
+    public function showUploadFile(Request $request){
+        $model = new File();
 
-    $model = new File();
-
-    $file = $request->file('file');
-    $ext = $file->getClientOriginalExtension();
-    $type = $this->getType($ext);
-
-    if (Storage::putFileAs('/public/' . $this->getUserDir() . '/' . $type . '/', $file, $request['name'] . '.' . $ext)) {
-      return $model::create([
-          'name' => $request['name'],
-          'type' => $type,
-          'extension' => $ext,
-          'user_id' => Auth::id()
-        ]);
+        $file = $request->file('file');
+        $ext = $file->getClientOriginalExtension();
+        $type = 'image';
+        
+        if (Storage::putFileAs('/public/' . $this->getUserDir(). '/' . $type . '/', $file, $request['name'] . '.' . $ext)) {
+          return $model::create([
+              'name' => $request['name'],
+              'type' => $type,
+              'extension' => $ext,
+              'user_id' => Auth::id()
+            ]);
+        }
     }
-//         $file = $request->file('file');
-//         //перемещаем загруженный файл
-//         $destinationPath = 'uploads';
-//         $file->move($destinationPath,$file->getClientOriginalName());
-      }
+    
+    private function getUserDir()
+    {
+        return Auth::user()->name . '_' . Auth::id();
+    }
+        
+    public function getImages($id) 
+    {
+        
+        $model = new File();
+        $files = $model::where('user_id', Auth::id())->paginate(10);
+        $response = [
+            'data' => $files
+        ];
+        
+        return response()->json($files);
+    }
+        
 }

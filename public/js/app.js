@@ -1869,6 +1869,7 @@ __webpack_require__.r(__webpack_exports__);
       var imagefile = document.getElementById('files');
       console.log(imagefile.files[0]);
       data.append('file', imagefile.files[0]);
+      data.append('name', imagefile.files[0].name);
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/home', data, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -1877,6 +1878,18 @@ __webpack_require__.r(__webpack_exports__);
         console.log(response);
       }).catch(function (error) {
         console.log(error.response);
+      });
+    },
+    getImg: function getImg() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('home/2').then(function (result) {
+        _this.loading = false;
+        _this.files = result.data.data.data;
+        _this.pagination = result.data.pagination;
+      }).catch(function (error) {
+        console.log(error);
+        _this.loading = false;
       });
     }
   },
@@ -45183,7 +45196,11 @@ var render = function() {
             on: { click: this.uploadFiles }
           })
         ]
-      )
+      ),
+      _vm._v(" "),
+      _c("button", { staticClass: "getImages", on: { click: _vm.getImg } }, [
+        _vm._v("GetImage")
+      ])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "main" }, [
@@ -57579,9 +57596,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! W:\domains\diplom\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! W:\domains\diplom\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! W:\domains\diplom\resources\sass\home.scss */"./resources/sass/home.scss");
+__webpack_require__(/*! W:\domains\DIPLOM\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! W:\domains\DIPLOM\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! W:\domains\DIPLOM\resources\sass\home.scss */"./resources/sass/home.scss");
 
 
 /***/ })

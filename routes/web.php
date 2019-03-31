@@ -22,3 +22,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Route::get('/uploadfile','UploadFileController@index');
 Route::post('/home','HomeController@showUploadFile');
+Route::get('/home/{id}', 'HomeController@getImages');

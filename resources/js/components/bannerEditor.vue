@@ -14,7 +14,7 @@
                 <input type="file" id="files" name="files" multiple>
                 <input type=button value=Upload @click="this.uploadFiles">
             </form>
-
+            <button class="getImages" v-on:click="getImg">GetImage</button>
         </div>
         <div class="main">
             <div id="banner-template" v-bind:style=" {
@@ -99,7 +99,9 @@
                 const data = new FormData(document.getElementById('uploadForm'))
                 var imagefile = document.getElementById('files')
                 console.log(imagefile.files[0])
+
                 data.append('file', imagefile.files[0])
+                data.append('name', imagefile.files[0].name)
                 axios.post('/home', data, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
@@ -111,6 +113,16 @@
                     .catch(error => {
                         console.log(error.response)
                     })
+            },
+            getImg() {
+                axios.get('home/2').then(result => {
+                    this.loading = false;
+                    this.files = result.data.data.data;
+                    this.pagination = result.data.pagination;
+                }).catch(error => {
+                    console.log(error);
+                    this.loading = false;
+                });
             }
 
         },
