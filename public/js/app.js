@@ -1767,6 +1767,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_draggable_resizable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_draggable_resizable__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! html2canvas */ "./node_modules/html2canvas/dist/npm/index.js");
 /* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(html2canvas__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -1800,6 +1802,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1807,37 +1818,73 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       image_url: '',
-      bg_image_height: '',
-      bg_image_width: '',
-      width: 0,
-      height: 0,
-      x: 0,
-      y: 0,
+      bg_template_height: '',
+      bg_template_width: '',
+      image_width: 0,
+      image_height: 0,
+      image_x: 0,
+      image_y: 0,
+      text_width: 0,
+      text_height: 0,
+      text_x: 0,
+      text_y: 0,
       input_text: '',
+      output_text: '',
       banner_template_dom: ''
     };
   },
   methods: {
-    onResize: function onResize(x, y, width, height) {
-      this.x = x;
-      this.y = y;
-      this.width = width;
-      this.height = height;
+    onResize_image: function onResize_image(x, y, width, height) {
+      this.image_x = x;
+      this.image_y = y;
+      this.image_width = width;
+      this.image_height = height;
     },
-    onDrag: function onDrag(x, y) {
-      this.x = x;
-      this.y = y;
+    onDrag_image: function onDrag_image(x, y) {
+      this.image_x = x;
+      this.image_y = y;
+    },
+    onResize_text: function onResize_text(x, y, width, height) {
+      this.text_x = x;
+      this.text_y = y;
+      this.text_width = width;
+      this.text_height = height;
+      document.getElementById('textFont').style.fontSize = this.text_height / 2 + 'px';
+    },
+    onDrag_text: function onDrag_text(x, y) {
+      this.text_x = x;
+      this.text_y = y;
     },
     insert_image: function insert_image() {
       html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(this.banner_template_dom).then(function (canvas) {
         document.getElementsByClassName('main')[0].appendChild(canvas);
       });
     },
-    insert_text: function insert_text() {}
+    insert_text: function insert_text() {
+      this.output_text = this.input_text;
+    },
+    uploadFiles: function uploadFiles() {
+      var s = this;
+      var data = new FormData(document.getElementById('uploadForm'));
+      var imagefile = document.getElementById('files');
+      console.log(imagefile.files[0]);
+      data.append('file', imagefile.files[0]);
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/home', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error.response);
+      });
+    }
   },
   created: function created() {
-    this.bg_image_height = 50;
-    this.bg_image_width = 50;
+    this.bg_template_height = 200;
+    this.bg_template_width = 500;
+    this.image_width = this.bg_template_width;
+    this.image_height = this.bg_template_height;
   },
   updated: function updated() {
     this.banner_template_dom = document.getElementById('banner-template');
@@ -45053,18 +45100,18 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.bg_image_height,
-            expression: "bg_image_height"
+            value: _vm.bg_template_height,
+            expression: "bg_template_height"
           }
         ],
         attrs: { type: "text", placeholder: "height: %" },
-        domProps: { value: _vm.bg_image_height },
+        domProps: { value: _vm.bg_template_height },
         on: {
           input: function($event) {
             if ($event.target.composing) {
               return
             }
-            _vm.bg_image_height = $event.target.value
+            _vm.bg_template_height = $event.target.value
           }
         }
       }),
@@ -45074,18 +45121,18 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.bg_image_width,
-            expression: "bg_image_width"
+            value: _vm.bg_template_width,
+            expression: "bg_template_width"
           }
         ],
         attrs: { type: "text", placeholder: "width: %" },
-        domProps: { value: _vm.bg_image_width },
+        domProps: { value: _vm.bg_template_width },
         on: {
           input: function($event) {
             if ($event.target.composing) {
               return
             }
-            _vm.bg_image_width = $event.target.value
+            _vm.bg_template_width = $event.target.value
           }
         }
       }),
@@ -45116,7 +45163,28 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "nav" }),
+    _c("div", { staticClass: "nav" }, [
+      _c(
+        "form",
+        {
+          attrs: {
+            id: "uploadForm",
+            name: "uploadForm",
+            enctype: "multipart/form-data"
+          }
+        },
+        [
+          _c("input", {
+            attrs: { type: "file", id: "files", name: "files", multiple: "" }
+          }),
+          _vm._v(" "),
+          _c("input", {
+            attrs: { type: "button", value: "Upload" },
+            on: { click: this.uploadFiles }
+          })
+        ]
+      )
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "main" }, [
       _c(
@@ -45126,8 +45194,8 @@ var render = function() {
             backgroundColor: "#ffffff",
             display: "block",
             position: "relative",
-            width: _vm.bg_image_width + "%",
-            height: _vm.bg_image_height + "%",
+            width: _vm.bg_template_width + "px",
+            height: _vm.bg_template_height + "px",
             backgroundRepeat: "no-repeat"
           },
           attrs: { id: "banner-template" }
@@ -45136,22 +45204,43 @@ var render = function() {
           _c(
             "vue-draggable-resizable",
             {
-              attrs: { "class-name": "backgroungImage", parent: ".main" },
-              on: { dragging: _vm.onDrag, resizing: _vm.onResize }
+              attrs: {
+                "class-name": "backgroungImage",
+                w: _vm.bg_template_width,
+                h: _vm.bg_template_height,
+                parent: ".main"
+              },
+              on: { dragging: _vm.onDrag_image, resizing: _vm.onResize_image }
             },
             [
               _c("img", {
                 style: {
                   position: "relative",
-                  width: _vm.width + "px",
-                  height: _vm.height + "px"
+                  width: _vm.image_width + "px",
+                  height: _vm.image_height + "px"
                 },
                 attrs: { src: _vm.image_url, alt: "" }
               })
             ]
           ),
           _vm._v(" "),
-          _c("p", [_vm._v("fghfhg")])
+          _c(
+            "vue-draggable-resizable",
+            {
+              attrs: {
+                "class-name": "backgroungText",
+                w: 30,
+                h: 30,
+                parent: ".main"
+              },
+              on: { dragging: _vm.onDrag_text, resizing: _vm.onResize_text }
+            },
+            [
+              _c("p", { attrs: { id: "textFont" } }, [
+                _vm._v(_vm._s(_vm.output_text))
+              ])
+            ]
+          )
         ],
         1
       )
