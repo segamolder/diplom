@@ -28,6 +28,8 @@ Vue.component('vue-draggable-resizable', VueDraggableResizable)
 
 Vue.component('banner_editor', require('./components/bannerEditor.vue').default);
 
+Vue.component('user_panel', require('./components/userPanel.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -36,5 +38,9 @@ Vue.component('banner_editor', require('./components/bannerEditor.vue').default)
 
 
 var dialog = new Vue({
-    el: '#work_panel'
-})
+    el: '#main_frame'
+});
+
+// var user =  new Vue({
+//     el: '#user_panel'
+// })

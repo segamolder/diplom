@@ -7,93 +7,118 @@
 //Social network
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300&subset=latin,cyrillic);
-
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC|Gugi'); //Вынести в variables
 
 html,
 body {
-    position: relative;
-    font: 12px/18px Arial, sans-serif;
-    overflow-x: hidden;
+  position: relative;
+  //font: 12px/18px Arial, sans-serif;
+  overflow-x: hidden;
 }
 
 
 .slider {
-    height: 93.6vh;
-    width: 100%;
-    background-image: url(../img/slide_1.png);
+  min-width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-image: url("../../public/images/slide_1.jpg");
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .text {
+    .title {
+      font-family: 'Gugi', cursive;
+      color: white;
+      font-size: 4rem;
+    }
+
+    .subtitle {
+      font-family: 'Amatic SC', cursive;
+      color: white;
+      font-size: 3rem;
+      background-color: #ffa46b;
+      padding: 0 3vw;
+    }
+  }
+
 }
 
 .second-block {
-    height: 100vh;
+  height: 100vh;
+  width: 100%;
+  background-color: white;
+
+
+  &__title {
+    color: black;
+    font-family: "Pacifico", cursive;
+    height: 20vh;
     width: 100%;
-    background-color: white;
-    padding-top: 30px;
-    hr {
-        margin: 0;
-    }
-    
-    &__title {
-        color: black;
-        font-family: "Pacifico", cursive;
-        height: 100px;
-        width: 100%;
-        text-align: center;
-        margin: 0 30px 30px 30px;
-        letter-spacing: 3px;
-        font-size: 22px;
-        line-height: 33px;
-    }
+    text-align: center;
+    //margin: 0 30px 30px 30px;
+    letter-spacing: 3px;
+    font-size: 1rem;
+    line-height: 33px;
+    border-bottom: 1px solid black;
+  }
 
-    &__bulb-icon {
-        color: Khaki;
-        //padding: 10px;
-    }
-    
-    &__earth-icon {
-        color: SkyBlue;
-    }
+  &__bulb-icon {
+    color: Khaki;
+    //padding: 10px;
+  }
 
-    &__link-icon {
-        color: Gainsboro;
-    }
+  &__earth-icon {
+    color: SkyBlue;
+  }
+
+  &__link-icon {
+    color: Gainsboro;
+  }
+
+  &__triggers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 40vh 40vh;
     &__trigger {
-        margin: 0;
-        width: 50%;
-        height: 37vh;
-        display: flex;
-        float: left;
-        //border: 1px solid black;
-        justify-content: center;
-        align-items: center;
-        
-        &:hover {
-            background-color: aliceblue;
-        }
-        
-        p {
-            margin: 0 0 0 50px;
-            font-family: $Amatic;
-            font-size: 33px;
-        }
-    }
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
 
+
+
+
+      &:hover {
+        background-color: aliceblue;
+      }
+
+      p {
+        font-family: $Amatic;
+        font-size: 2rem;
+        text-align: center;
+      }
+    }
+  }
 }
 
 .create_banner_with_us {
-    height: 100vh;
-    width: 100%;
-    background-color: dimgray;
+  height: 100vh;
+  width: 100%;
+  background-color: dimgray;
 }
 
 .footer {
-    height: 10vh;
-    width: 100%;
-    background-color: yellow;
+  height: 10vh;
+  width: 100%;
+  background-color: yellow;
 }
 
 .backgroundImage {
-    position: relative;
+  position: relative;
 }
+
 //.twitter a:hover {
 //    background: #00acee;
 //    color: #fff;

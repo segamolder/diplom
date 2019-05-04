@@ -22,4 +22,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Route::get('/uploadfile','UploadFileController@index');
 Route::post('/home','HomeController@showUploadFile');
+Route::get('/home/getUserDir', 'HomeController@getUserDir');
+Route::get('/home/getUserId', 'HomeController@getUserId');
 Route::get('/home/{id}', 'HomeController@getImages');
+Route::get('/user/getAllImages', 'UserController@getAllImages');
+Route::post('/home/saveAll','HomeController@saveAll');
+Route::post('/home/updateAll','HomeController@updateAll');
+Route::get('/user', 'UserController@index')->name('user');

@@ -11,15 +11,15 @@
     <title>{{ config('app.name', 'OPORTFOLIO') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ mix('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/home.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/home.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
 
@@ -69,6 +69,9 @@
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
                                 </form>
+                                <a class="dropdown-item" href="{{ route('user') }}">
+                                    Личный кабинет
+                                </a>
                             </div>
                         </li>
                         @endguest
@@ -77,7 +80,7 @@
             </div>
         </nav>
 
-        <main class="content">
+        <main id="main_frame" class="content">
             @yield('content')
         </main>
     </div>
