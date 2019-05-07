@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App;
 use App\File;
 use App\Models\Widget;
+use App\Models\PhoneNumber;
 
 
 class UserController extends Controller
@@ -38,5 +39,13 @@ class UserController extends Controller
         $widget = new Widget();
         $files = $widget::where('user_id', Auth::id())->get();
         return response()->json($files);
+    }
+
+    public function getPhoneNumber()
+    {
+
+        $phone = new PhoneNumber();
+        $phones = $phone::where('user_id', Auth::id()) -> get();
+        return response()->json($phones);
     }
 }

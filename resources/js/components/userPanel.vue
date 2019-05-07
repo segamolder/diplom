@@ -4,6 +4,9 @@
             <input type="text" v-model="template_name" placeholder="Имя файла">
             <button class="save blueButton" v-on:click="save">Создать</button>
         </div>
+        <div class="userWorkPanel__createNew" style="height: 30vh; overflow-y: auto">
+            <a v-bind:href="'tel:'+phoneNumber.phone" v-for="phoneNumber in phoneNumbers">{{phoneNumber.phone}}</a>
+        </div>
         <div class="userWorkPanel__item" v-for="item in canvaFiles"
              v-bind:style="'background-image: url('+item.canvas_image+')'">
             <!--<img v-bind:src="item.canvas_image" alt="">-->
@@ -18,7 +21,8 @@
                 <h3 slot="header">Название:{{item.name}}</h3>
                 <h3 slot="body" style="background-color: #eee;">
                     <code style="color: black">
-                        &lt;iframe src="http://oportfolio.ru/widget/{{item.name}}/{{item.user_id}}" frameborder="0" scrolling="no" width="500" height="200"&gt;
+                        &lt;iframe src="http://oportfolio.ru/widget/{{item.name}}/{{item.user_id}}" frameborder="0"
+                        scrolling="no" width="500" height="200"&gt;
                         &lt;/iframe&gt;
                     </code>
 
@@ -45,10 +49,21 @@
                 canvaFiles: null,
                 template_name: '',
                 user_id: 0,
-                showModal: false
+                showModal: false,
+                phoneNumbers: null
             }
         },
         methods: {
+            getPhoneNumber() {
+                let self = this;
+                axios.get('user/getPhoneNumber').then(result => {
+                    this.loading = false;
+                    self.phoneNumbers = result.data;
+                }).catch(error => {
+                    console.log(error);
+                    this.loading = false;
+                });
+            },
             getImg() {
                 let self = this;
                 axios.get('user/getAllImages').then(result => {
@@ -134,6 +149,7 @@
         created() {
             this.getImg();
             this.getUserId();
+            this.getPhoneNumber();
         },
         mounted() {
 

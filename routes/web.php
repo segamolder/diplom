@@ -35,3 +35,4 @@ Route::get('/user', 'UserController@index')->name('user');
 Route::get('/widget/{name}/{id}', 'HomeController@getWidgetInfo');
 
 Route::post('/home/sendNumber','HomeController@sendNumber');
+Route::get('user/getPhoneNumber', 'UserController@getPhoneNumber');

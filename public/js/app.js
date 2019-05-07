@@ -2268,6 +2268,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2280,20 +2284,33 @@ __webpack_require__.r(__webpack_exports__);
       canvaFiles: null,
       template_name: '',
       user_id: 0,
-      showModal: false
+      showModal: false,
+      phoneNumbers: null
     };
   },
   methods: {
-    getImg: function getImg() {
+    getPhoneNumber: function getPhoneNumber() {
       var _this = this;
 
       var self = this;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('user/getAllImages').then(function (result) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('user/getPhoneNumber').then(function (result) {
         _this.loading = false;
-        self.canvaFiles = result.data;
+        self.phoneNumbers = result.data;
       }).catch(function (error) {
         console.log(error);
         _this.loading = false;
+      });
+    },
+    getImg: function getImg() {
+      var _this2 = this;
+
+      var self = this;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('user/getAllImages').then(function (result) {
+        _this2.loading = false;
+        self.canvaFiles = result.data;
+      }).catch(function (error) {
+        console.log(error);
+        _this2.loading = false;
       });
     },
     save: function save() {
@@ -2344,14 +2361,14 @@ __webpack_require__.r(__webpack_exports__);
       location.replace("/home");
     },
     getUserId: function getUserId() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('home/getUserId').then(function (result) {
-        _this2.loading = false;
-        _this2.user_id = result.data; //this.pagination = result.data.pagination;
+        _this3.loading = false;
+        _this3.user_id = result.data; //this.pagination = result.data.pagination;
       }).catch(function (error) {
         console.log(error);
-        _this2.loading = false;
+        _this3.loading = false;
       });
     },
     setIsActive: function setIsActive(item) {
@@ -2367,6 +2384,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.getImg();
     this.getUserId();
+    this.getPhoneNumber();
   },
   mounted: function mounted() {}
 });
@@ -46093,6 +46111,20 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "userWorkPanel__createNew",
+          staticStyle: { height: "30vh", "overflow-y": "auto" }
+        },
+        _vm._l(_vm.phoneNumbers, function(phoneNumber) {
+          return _c("a", { attrs: { href: "tel:" + phoneNumber.phone } }, [
+            _vm._v(_vm._s(phoneNumber.phone))
+          ])
+        }),
+        0
+      ),
+      _vm._v(" "),
       _vm._l(_vm.canvaFiles, function(item) {
         return _c(
           "div",
@@ -46153,11 +46185,11 @@ var render = function() {
                       [
                         _c("code", { staticStyle: { color: "black" } }, [
                           _vm._v(
-                            "\n                    <iframe src=\"'http://diplom/widget/" +
+                            '\n                    <iframe src="http://oportfolio.ru/widget/' +
                               _vm._s(item.name) +
                               "/" +
                               _vm._s(item.user_id) +
-                              '" frameborder="0" scrolling="no" width="500" height="200">\n                    </iframe>\n                '
+                              '" frameborder="0"\n                    scrolling="no" width="500" height="200">\n                    </iframe>\n                '
                           )
                         ])
                       ]
