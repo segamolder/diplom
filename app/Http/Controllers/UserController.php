@@ -35,7 +35,6 @@ class UserController extends Controller
 
     public function getAllImages()
     {
-        xdebug_break();
         $widget = new Widget();
         $files = $widget::where('user_id', Auth::id())->get();
         return response()->json($files);

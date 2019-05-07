@@ -84,7 +84,7 @@ class HomeController extends Controller
 
         $widgetDataLayer = $request->getContent();
         $widgetData = json_decode($widgetDataLayer, true);
-        xdebug_break();
+
         $widget = new Widget($widgetData);
 //        //$test = $widgetData->bg_height;
 //        $widget = $widgetData;
@@ -101,7 +101,7 @@ class HomeController extends Controller
         $widgetData = json_decode($widgetDataLayer, true);
         //$this->saveCanvasImage($widgetData['canvas_image']);
         $widget = new Widget();
-        xdebug_break();
+
         //$name = $widgetData['name'];
         //$matchThese = ['active' => true, 'user_id' => Auth::id()];
        $widget->where(['active' => true, 'user_id' => Auth::id()])->update($widgetData);
@@ -123,7 +123,7 @@ class HomeController extends Controller
     public function setTemplateActive(Request $request) {
         $widgetDataLayer = $request->getContent();
         $widgetData = json_decode($widgetDataLayer, true);
-        xdebug_break();
+
         $name = $widgetData['name'];
         $unCheck = new Widget();
         $unCheckItems = $unCheck::where(['user_id' => Auth::id(), 'active'=>true])->get();
@@ -148,7 +148,7 @@ class HomeController extends Controller
     }
 
     public function getWidgetInfo($name, $id) {
-        xdebug_break();
+
         $widget = new Widget();
         $widgetData = $widget::where(['name' => $name, 'user_id' => $id])->get();
         //$widgetResult = response()->json($widgetData);
@@ -156,7 +156,7 @@ class HomeController extends Controller
     }
 
     public function sendNumber(Request $request) {
-        xdebug_break();
+
         $numberDataLayer = $request->getContent();
         $numberData = json_decode($numberDataLayer, true);
         PhoneNumber::create($numberData);
