@@ -16,7 +16,7 @@ var widget = new Vue({
     },
     methods: {
         sendNumber() {
-            debugger;
+
             let self = this;
 
             axios.post('/home/sendNumber', {phone: self.phoneNumber, user_id: this.user_id})

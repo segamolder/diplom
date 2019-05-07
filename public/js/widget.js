@@ -48879,7 +48879,6 @@ var widget = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   },
   methods: {
     sendNumber: function sendNumber() {
-      debugger;
       var self = this;
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/home/sendNumber', {
         phone: self.phoneNumber,
