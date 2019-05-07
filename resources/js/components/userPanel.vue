@@ -18,7 +18,7 @@
                 <h3 slot="header">Название:{{item.name}}</h3>
                 <h3 slot="body" style="background-color: #eee;">
                     <code style="color: black">
-                        &lt;iframe src="'http://oportfolio.ru/widget/{{item.name}}/{{item.user_id}}" frameborder="0" scrolling="no" width="500" height="200"&gt;
+                        &lt;iframe src="http://oportfolio.ru/widget/{{item.name}}/{{item.user_id}}" frameborder="0" scrolling="no" width="500" height="200"&gt;
                         &lt;/iframe&gt;
                     </code>
 
