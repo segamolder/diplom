@@ -15,3 +15,4 @@ mix.js('resources/js/app.js', 'public/js').version();
 mix.sass('resources/sass/app.scss', 'public/css').version();
 
 mix.sass('resources/sass/home.scss', 'public/css').version();
+mix.js('resources/js/widget.js', 'public/js').version();

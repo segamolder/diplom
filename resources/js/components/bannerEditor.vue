@@ -57,30 +57,33 @@
             <button class="blueButton" v-on:click="updateAll">Сохранить</button>
         </div>
         <div class="main">
-            <div id="banner-template" v-bind:style=" {
-                                                            backgroundColor: '#ffffff', 
-                                                            display: 'block',
-                                                            position: 'relative',
-                                                            width: bg_template_width + 'px',
-                                                            height: bg_template_height + 'px',
-                                                            backgroundRepeat: 'no-repeat'
-                                                        }">
+            <div id="banner-template" v-bind:style="'background-color: #ffffff; display: block; position: relative; width:' + bg_template_width + 'px; height:' + bg_template_height + 'px; background-repeat: no-repeat'
+                                                        ">
                 <vue-draggable-resizable v-bind:style="'display:' + userImageVisible" class-name="backgroungImage"
                                          :w=bg_template_width :h=bg_template_height
-                                         parent=".main" @dragging="onDrag_image" @resizing="onResize_image">
+                                         parent=".main" @dragging="onDrag_image" @resizing="onResize_image"
+                                         :x = image_x
+                                         :y = image_y>
                     <img v-bind:src="image_url" alt=""
                          v-bind:style="{position: 'relative', width: image_width + 'px', height: image_height + 'px'}">
                 </vue-draggable-resizable>
 
-                <vue-draggable-resizable v-bind:style="'display:' + userTextVisible" class-name="backgroungText" :w=50
-                                         :h=50 parent=".main" @dragging="onDrag_text"
-                                         @resizing="onResize_text">
+                <vue-draggable-resizable v-bind:style="'display:' + userTextVisible +'; font-size:'+fontSize +'px'"
+                                         class-name="backgroungText" :w=50
+                                         parent=".main" @dragging="onDrag_text"
+                                         @resizing="onResize_text"
+                                         :h=fontSize*2
+                                         :x = text_x
+                                         :y = text_y>
                     <p id="textFont" v-bind:style="'font-family:' + selectedValue ">{{output_text}}</p>
                 </vue-draggable-resizable>
 
                 <vue-draggable-resizable v-bind:style="'display:'+ userInputVisible" class-name="backgroundInput" :w=205
-                                         :h=30 parent=".main"
-                                         @dragging="onDrag_input">
+                                         :h=30
+                                         parent=".main"
+                                         @dragging="onDrag_input"
+                                         :x = input_x
+                                         :y = input_y>
                     <div class="inputItems">
                         <input type="text" placeholder="">
                         <button>{{ userInput }}</button>
@@ -88,7 +91,7 @@
                 </vue-draggable-resizable>
             </div>
 
-            <button @click="insert_image">test</button>
+            <!--<button @click="insert_image">test</button>-->
         </div>
     </div>
 </template>
@@ -123,17 +126,19 @@
                 userUrlImage: '',
                 bgTemplateHeightLayer: '',
                 bgTemplateWidthLayer: '',
-                selectedValue: [{name: "'Raleway', sans-serif"}],
+                selectedValue: "'Raleway', sans-serif",
                 fonts: ["'ZCOOL KuaiLe', cursive", "'Gugi', cursive", "'Just Another Hand', cursive", "'Sofia', cursive", "'Raleway', sans-serif"],
                 userInput: '',
                 input_x: 0,
                 input_y: 0,
                 userInputLayer: '',
                 userInputVisible: 'none',
-                fontSize: 0,
+                fontSize: 40,
                 userId: null,
                 template_name: '',
-                canvasImage: null
+                canvasImage: null,
+                templateInfo: null,
+                timerId: null
             }
         },
         methods: {
@@ -172,10 +177,7 @@
             insert_image() {
                 let self = this;
                 html2canvas(this.banner_template_dom).then(function (canvas) {
-                    //document.getElementsByClassName('main')[0].appendChild(canvas);
-                    debugger;
                     self.canvasImage = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-
                 });
             },
             insert_text() {
@@ -204,7 +206,6 @@
                     })
             },
             getImg() {
-                //debugger;
                 axios.get('home/' + this.user).then(result => {
 
                     this.loading = false;
@@ -217,7 +218,6 @@
                 });
             },
             getUserDir() {
-                //debugger;
                 axios.get('home/getUserDir').then(result => {
 
                     this.loading = false;
@@ -231,7 +231,6 @@
             },
             getUserId() {
                 axios.get('home/getUserId').then(result => {
-
                     this.loading = false;
                     this.userId = result.data;
 
@@ -242,7 +241,6 @@
                 });
             },
             setImage(url) {
-                //debugger;
                 this.image_url = url;
                 this.userImageVisible = 'block'
             },
@@ -328,6 +326,7 @@
                     input_x: this.input_x,
                     input_y: this.input_y,
                     user_id: this.userId,
+                    active: true
 
                 }
 
@@ -338,13 +337,49 @@
                     .catch(function (error) {
                         console.log(error);
                     });
-            }
+            },
+            getTemplateInfo() {
+                axios.get('home/getTemplateInfo').then(result => {
+
+                    this.loading = false;
+                    this.templateInfo = result.data[0];
+                    this.template_name = this.templateInfo.name;
+                    this.bg_template_width = this.templateInfo.bg_width;
+                    this.bg_template_height = this.templateInfo.bg_height;
+                    this.image_url = this.templateInfo.image_url;
+                    if (this.templateInfo.image_url != "") { this.userImageVisible = 'block' }
+                    if (this.templateInfo.image_height != 0 && this.templateInfo.image_width !=0) {
+                        this.image_height = this.templateInfo.image_height;
+                        this.image_width = this.templateInfo.image_width;
+                    }
+                    this.image_x = this.templateInfo.image_x;
+                    this.image_y = this.templateInfo.image_y;
+                    this.output_text = this.templateInfo.text;
+                    if (this.templateInfo.text != "") { this.userTextVisible = 'block' }
+                    this.text_x = this.templateInfo.text_x;
+                    this.text_y = this.templateInfo.text_y;
+                   // this.onDrag_text(this.templateInfo.text_x, this.templateInfo.text_y);
+                    if (this.templateInfo.text_size != 0) {
+                        this.fontSize = this.templateInfo.text_size;
+                    }
+                    this.selectedValue = this.templateInfo.text_font;
+                    this.userInput = this.templateInfo.input_text;
+                    if (this.templateInfo.input_text != "") { this.userInputVisible = 'block' }
+                    this.input_x = this.templateInfo.input_x;
+                    this.input_y = this.templateInfo.input_y;
+                    //this.userId = this.templateInfo.user_id;
+                    //active: false
+                    //
+                }).catch(error => {
+                    console.log(error);
+                    this.loading = false;
+                });
+
+            },
 
         },
         mounted() {
             //Если вызвать в created то будут падать ошибки в консоль так как user  будет null
-
-
             this.getImg();
         },
         created() {
@@ -354,10 +389,19 @@
             this.image_height = this.bg_template_height;
             this.getUserId();
             this.getUserDir();
+            this.getTemplateInfo();
+            let self = this;
+            this.timerId = setInterval(function() {
+                self.updateAll();
+            }, 10000);
         },
         updated() {
             this.banner_template_dom = document.getElementById('banner-template');
             //this.getImg();
+
+        },
+        beforeDestroy() {
+            clearInterval(this.timerId);
         }
     }
 

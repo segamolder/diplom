@@ -33,6 +33,7 @@ class Widget extends Migration
             $table->integer('input_x');
             $table->integer('input_y');
             $table->bigInteger('user_id')->unsigned();
+            $table->boolean('active');
             //$table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

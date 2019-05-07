@@ -226,5 +226,16 @@
 .userWorkPanel__item {
   background-repeat: no-repeat;
   background-size: contain;
+  display: flex;
+  flex-direction: column;
+}
+
+.userWorkPanel__item .link {
+  color: black;
+}
+
+#show-modal {
+  height: 5vh;
+  width: 10vw;
 }
 
