@@ -69,7 +69,7 @@
                 </vue-draggable-resizable>
 
                 <vue-draggable-resizable v-bind:style="'display:' + userTextVisible +'; font-size:'+fontSize +'px'"
-                                         class-name="backgroungText" :w=50
+                                         class-name="backgroungText" :w=text_width
                                          parent=".main" @dragging="onDrag_text"
                                          @resizing="onResize_text"
                                          :h=fontSize*2
@@ -78,10 +78,12 @@
                     <p id="textFont" v-bind:style="'font-family:' + selectedValue ">{{output_text}}</p>
                 </vue-draggable-resizable>
 
-                <vue-draggable-resizable v-bind:style="'display:'+ userInputVisible" class-name="backgroundInput" :w=205
-                                         :h=30
+                <vue-draggable-resizable v-bind:style="'display:'+ userInputVisible" class-name="backgroundInput"
+                                         :w=input_width
+                                         :h=input_height
                                          parent=".main"
                                          @dragging="onDrag_input"
+                                         @resizing="onResize_input"
                                          :x = input_x
                                          :y = input_y>
                     <div class="inputItems">
@@ -131,6 +133,8 @@
                 userInput: '',
                 input_x: 0,
                 input_y: 0,
+                input_width: 0,
+                input_height: 0,
                 userInputLayer: '',
                 userInputVisible: 'none',
                 fontSize: 40,
@@ -174,6 +178,12 @@
                 this.input_x = x
                 this.input_y = y
             },
+            onResize_input: function (x, y, width, height) {
+                this.input_x = x
+                this.input_y = y
+                this.input_width = width
+                this.input_height = height
+            },
             insert_image() {
                 let self = this;
                 html2canvas(this.banner_template_dom).then(function (canvas) {
@@ -203,7 +213,8 @@
                     })
                     .catch(error => {
                         console.log(error.response)
-                    })
+                    });
+                this.getImg();
             },
             getImg() {
                 axios.get('home/' + this.user).then(result => {
@@ -320,11 +331,14 @@
                     text: this.output_text,
                     text_x: this.text_x,
                     text_y: this.text_y,
+                    text_width: this.text_width,
+                    text_height: this.text_height,
                     text_size: this.fontSize,
                     text_font: this.selectedValue,
                     input_text: this.userInput,
                     input_x: this.input_x,
                     input_y: this.input_y,
+                    input_width: this.input_width,
                     user_id: this.userId,
                     active: true
 
@@ -362,9 +376,17 @@
                     if (this.templateInfo.text_size != 0) {
                         this.fontSize = this.templateInfo.text_size;
                     }
+                    if (this.templateInfo.text_height != 0 && this.templateInfo.text_width != 0) {
+                        this.text_height = this.templateInfo.text_height;
+                        this.text_width = this.templateInfo.text_width;
+                    }
                     this.selectedValue = this.templateInfo.text_font;
                     this.userInput = this.templateInfo.input_text;
                     if (this.templateInfo.input_text != "") { this.userInputVisible = 'block' }
+                    if (this.templateInfo.input_height != 0 && this.templateInfo.input_width != 0) {
+                        this.input_width = this.templateInfo.input_width;
+                        this.input_height = this.templateInfo.input_height;
+                    }
                     this.input_x = this.templateInfo.input_x;
                     this.input_y = this.templateInfo.input_y;
                     //this.userId = this.templateInfo.user_id;
@@ -393,6 +415,7 @@
             let self = this;
             this.timerId = setInterval(function() {
                 self.updateAll();
+                //self.getImg();
             }, 10000);
         },
         updated() {

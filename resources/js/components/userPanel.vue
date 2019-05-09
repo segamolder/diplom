@@ -22,7 +22,7 @@
                 <h3 slot="body" style="background-color: #eee;">
                     <code style="color: black">
                         &lt;iframe src="http://oportfolio.ru/widget/{{item.name}}/{{item.user_id}}" frameborder="0"
-                        scrolling="no" width="500" height="200"&gt;
+                        scrolling="no" width={{item.bg_width}} height={{item.bg_height}}&gt;
                         &lt;/iframe&gt;
                     </code>
 
@@ -106,11 +106,14 @@
                     text: '',
                     text_x: 0,
                     text_y: 0,
+                    text_width: 0,
+                    text_height: 0,
                     text_size: 0,
                     text_font: '',
                     input_text: '',
                     input_x: 0,
                     input_y: 0,
+                    input_width: 0,
                     user_id: this.user_id,
                     active: true
                 }

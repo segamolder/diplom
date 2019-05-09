@@ -1867,6 +1867,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -1900,6 +1902,8 @@ __webpack_require__.r(__webpack_exports__);
       userInput: '',
       input_x: 0,
       input_y: 0,
+      input_width: 0,
+      input_height: 0,
       userInputLayer: '',
       userInputVisible: 'none',
       fontSize: 40,
@@ -1941,6 +1945,12 @@ __webpack_require__.r(__webpack_exports__);
       this.input_x = x;
       this.input_y = y;
     },
+    onResize_input: function onResize_input(x, y, width, height) {
+      this.input_x = x;
+      this.input_y = y;
+      this.input_width = width;
+      this.input_height = height;
+    },
     insert_image: function insert_image() {
       var self = this;
       html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(this.banner_template_dom).then(function (canvas) {
@@ -1966,6 +1976,7 @@ __webpack_require__.r(__webpack_exports__);
       }).catch(function (error) {
         console.log(error.response);
       });
+      this.getImg();
     },
     getImg: function getImg() {
       var _this = this;
@@ -2079,11 +2090,14 @@ __webpack_require__.r(__webpack_exports__);
         text: this.output_text,
         text_x: this.text_x,
         text_y: this.text_y,
+        text_width: this.text_width,
+        text_height: this.text_height,
         text_size: this.fontSize,
         text_font: this.selectedValue,
         input_text: this.userInput,
         input_x: this.input_x,
         input_y: this.input_y,
+        input_width: this.input_width,
         user_id: this.userId,
         active: true
       };
@@ -2128,11 +2142,21 @@ __webpack_require__.r(__webpack_exports__);
           _this4.fontSize = _this4.templateInfo.text_size;
         }
 
+        if (_this4.templateInfo.text_height != 0 && _this4.templateInfo.text_width != 0) {
+          _this4.text_height = _this4.templateInfo.text_height;
+          _this4.text_width = _this4.templateInfo.text_width;
+        }
+
         _this4.selectedValue = _this4.templateInfo.text_font;
         _this4.userInput = _this4.templateInfo.input_text;
 
         if (_this4.templateInfo.input_text != "") {
           _this4.userInputVisible = 'block';
+        }
+
+        if (_this4.templateInfo.input_height != 0 && _this4.templateInfo.input_width != 0) {
+          _this4.input_width = _this4.templateInfo.input_width;
+          _this4.input_height = _this4.templateInfo.input_height;
         }
 
         _this4.input_x = _this4.templateInfo.input_x;
@@ -2159,7 +2183,7 @@ __webpack_require__.r(__webpack_exports__);
     this.getTemplateInfo();
     var self = this;
     this.timerId = setInterval(function () {
-      self.updateAll();
+      self.updateAll(); //self.getImg();
     }, 10000);
   },
   updated: function updated() {
@@ -2345,11 +2369,14 @@ __webpack_require__.r(__webpack_exports__);
         text: '',
         text_x: 0,
         text_y: 0,
+        text_width: 0,
+        text_height: 0,
         text_size: 0,
         text_font: '',
         input_text: '',
         input_x: 0,
         input_y: 0,
+        input_width: 0,
         user_id: this.user_id,
         active: true
       };
@@ -45948,7 +45975,7 @@ var render = function() {
                 "px",
               attrs: {
                 "class-name": "backgroungText",
-                w: 50,
+                w: _vm.text_width,
                 parent: ".main",
                 h: _vm.fontSize * 2,
                 x: _vm.text_x,
@@ -45974,13 +46001,13 @@ var render = function() {
               style: "display:" + _vm.userInputVisible,
               attrs: {
                 "class-name": "backgroundInput",
-                w: 205,
-                h: 30,
+                w: _vm.input_width,
+                h: _vm.input_height,
                 parent: ".main",
                 x: _vm.input_x,
                 y: _vm.input_y
               },
-              on: { dragging: _vm.onDrag_input }
+              on: { dragging: _vm.onDrag_input, resizing: _vm.onResize_input }
             },
             [
               _c("div", { staticClass: "inputItems" }, [
@@ -46189,7 +46216,11 @@ var render = function() {
                               _vm._s(item.name) +
                               "/" +
                               _vm._s(item.user_id) +
-                              '" frameborder="0"\n                    scrolling="no" width="500" height="200">\n                    </iframe>\n                '
+                              '" frameborder="0"\n                    scrolling="no" width=' +
+                              _vm._s(item.bg_width) +
+                              " height=" +
+                              _vm._s(item.bg_height) +
+                              ">\n                    </iframe>\n                "
                           )
                         ])
                       ]

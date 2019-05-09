@@ -27,11 +27,14 @@ class Widget extends Migration
             $table->string('text');
             $table->integer('text_x');
             $table->integer('text_y');
+            $table->integer('text_width');
+            $table->integer('text_height');
             $table->integer('text_size');
             $table->string('text_font');
             $table->string('input_text');
             $table->integer('input_x');
             $table->integer('input_y');
+            $table->integer('input_width');
             $table->bigInteger('user_id')->unsigned();
             $table->boolean('active');
             //$table->timestamps();
