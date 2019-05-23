@@ -84,7 +84,6 @@ class HomeController extends Controller
 
         $widgetDataLayer = $request->getContent();
         $widgetData = json_decode($widgetDataLayer, true);
-xdebug_break();
         $widget = new Widget($widgetData);
 //        //$test = $widgetData->bg_height;
 //        $widget = $widgetData;
