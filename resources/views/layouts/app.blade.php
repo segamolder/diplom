@@ -47,11 +47,11 @@
                         <!-- Authentication Links -->
                         @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('message.Login') }}</a>
                         </li>
                         @if (Route::has('register'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('message.Register') }}</a>
                         </li>
                         @endif
                         @else
@@ -61,17 +61,24 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('user') }}">
+                                    {{ __('message.userpanel') }}
+                                </a>
+                                <a class="dropdown-item" href="{{ route('home') }}">
+                                    {{ __('message.workpanel') }}
+                                </a>
+                                <a class="dropdown-item" href="{{ route('welcome') }}">
+                                    {{ __('message.mainview') }}
+                                </a>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    {{ __('message.Logout') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
                                 </form>
-                                <a class="dropdown-item" href="{{ route('user') }}">
-                                    Личный кабинет
-                                </a>
                             </div>
                         </li>
                         @endguest
