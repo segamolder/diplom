@@ -16,9 +16,8 @@ class PhoneNumber extends Migration
         Schema::create('phone_number', function (Blueprint $table) {
             $table->increments('id');
             $table->string('phone');
-           // $table->string('widget_name');
             $table->bigInteger('user_id')->unsigned();
-            //$table->foreign('widget_name')->references('name')->on('widget');
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

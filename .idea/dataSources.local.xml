@@ -11,7 +11,7 @@
       <user-name>segamolder</user-name>
       <introspection-schemas>*:@</introspection-schemas>
       <ssh-properties>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
         <proxy-host>oportfolio.ru</proxy-host>
         <secret-storage>master_key</secret-storage>
         <user>segamolder</user>

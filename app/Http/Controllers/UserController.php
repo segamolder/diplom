@@ -43,7 +43,6 @@ class UserController extends Controller
 
     public function getPhoneNumber()
     {
-
         $phone = new PhoneNumber();
         $phones = $phone::where('user_id', Auth::id()) -> get();
         return response()->json($phones);

@@ -196,7 +196,6 @@
 
             },
             uploadFiles() {
-
                 const data = new FormData(document.getElementById('uploadForm'))
                 var imagefile = document.getElementById('my-file')
                 console.log(imagefile.files[0])
@@ -218,11 +217,8 @@
             },
             getImg() {
                 axios.get('home/' + this.user).then(result => {
-
                     this.loading = false;
                     this.files = result.data;
-
-                    //this.pagination = result.data.pagination;
                 }).catch(error => {
                     console.log(error);
                     this.loading = false;

@@ -4,14 +4,15 @@
             <input type="text" v-model="template_name" placeholder="Имя файла">
             <button class="save blueButton" v-on:click="save">Создать</button>
         </div>
-        <div class="userWorkPanel__createNew" style="height: 30vh; overflow-y: auto">
+        <div class="userWorkPanel__createNew d-flex" style="height: 30vh; overflow-y: auto; flex-direction: column; justify-content: end;">
+            <p>Оставленные заявки:</p>
             <a v-bind:href="'tel:'+phoneNumber.phone" v-for="phoneNumber in phoneNumbers">{{phoneNumber.phone}}</a>
         </div>
         <div class="userWorkPanel__item" v-for="item in canvaFiles"
              v-bind:style="'background-image: url('+item.canvas_image+')'">
             <!--<img v-bind:src="item.canvas_image" alt="">-->
-            <button id="show-modal" @click="showModal = true">Получить ссылку</button>
-            <a class="link" @click="setIsActive(item.name)" href="/home">Изменить</a>
+            <button id="show-modal" class="btn btn-primary" @click="showModal = true">Получить ссылку</button>
+            <a class="link btn btn-secondary" @click="setIsActive(item.name)" href="/home">Изменить</a>
             <!-- use the modal component, pass in the prop -->
             <modal v-if="showModal" @close="showModal = false">
                 <!--
@@ -75,24 +76,6 @@
                 });
             },
             save() {
-                // let data = {
-                //     bg_width: this.bg_template_width,
-                //     bg_height: this.bg_template_height,
-                //     image_url: this.image_url,
-                //     image_height: this.image_height,
-                //     image_width: this.image_width,
-                //     image_x: this.image_x,
-                //     image_y: this.image_y,
-                //     text: this.output_text,
-                //     text_x: this.text_x,
-                //     text_y: this.text_y,
-                //     text_size: this.fontSize,
-                //     text_font: this.selectedValue,
-                //     input_text: this.userInput,
-                //     input_x: this.input_x,
-                //     input_y: this.input_y,
-                //     user_id: this.userId
-                // }
                 let data = {
                     name: this.template_name,
                     canvas_image: '',
@@ -116,7 +99,7 @@
                     input_width: 0,
                     user_id: this.user_id,
                     active: true
-                }
+                };
 
                 axios.post('/home/saveAll', data)
                     .then(function (response) {
