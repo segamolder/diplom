@@ -9,8 +9,8 @@
   display: grid;
   width: 100vw;
   height: 100vh;
-  grid-template-columns: 20vw 80vw;
-  grid-template-rows: 20vh auto;
+  grid-template-columns: 20vw 75vw;
+  grid-template-rows: 25vh auto;
   grid-template-areas: "nav head" "nav main";
 
 }
@@ -247,12 +247,13 @@
     display: flex;
     flex-direction: column;
     .link {
-      color: black;
+      color: white;
+      width: 10vw;
     }
   }
 }
 
 #show-modal {
-  height: 5vh;
+  //height: 5vh;
   width: 10vw;
 }

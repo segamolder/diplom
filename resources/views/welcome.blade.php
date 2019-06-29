@@ -30,10 +30,23 @@
             </div>
         </div>
     </div>
-    <div class="create_banner_with_us"></div>
+    <div class="create_banner_with_us">
+        <div class="image_banner"></div>
+        <div class="textforimage"><p>Размещайте баннеры на популярных ресурсах!</p></div>
+    </div>
 
-    <div class="footer"></div>
+    <div class="footer">
+        <div class="social-icons">
+            <a href="https://twitter.com/DimaDiim" target="_blank"><i style="margin-right: 2vw" class="fab fa-twitter fa-2x"></i></a>
 
+            <a href="https://www.instagram.com/dimadiim/" target="_blank"><i style="color: white; margin-right: 2vw" class="fab fa-2x fa-instagram"></i></a>
+
+            <a href="https://vk.com/dima_eremeev" target="_blank"><i style="color: #4a76a8" class="fab fa-2x fa-vk"></i></a>
+        </div>
+        <div class="text-footer"><i class="fas fa-hashtag"></i>besteditorever</div>
+    </div>
+    
+    
     <!--
             <footer class="footer">
                 <div class="social twitter">
